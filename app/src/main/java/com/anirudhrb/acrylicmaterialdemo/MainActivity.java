@@ -1,18 +1,49 @@
 package com.anirudhrb.acrylicmaterialdemo;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+import bolts.Continuation;
+import bolts.Task;
 import com.anirudhrb.acrylicmaterial.AcrylicMaterial;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+import java.util.concurrent.Callable;
 
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i(TAG, AcrylicMaterial.greeting());
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Task.callInBackground(new Callable<Drawable>() {
+            @Override
+            public Drawable call() {
+                return AcrylicMaterial.with(MainActivity.this)
+                        .background(R.drawable.background_image)
+                        .blurRadius(25f)
+                        .tintColor(Color.parseColor("#55FFFFFF"))
+                        .noiseLayer(R.drawable.noise_layer)
+                        .generate();
+            }
+        }).onSuccess(new Continuation<Drawable, Void>() {
+            @Override
+            public Void then(Task<Drawable> task) {
+                Drawable drawable = task.getResult();
+                if (drawable == null) {
+                    return null;
+                }
+
+                final ImageView background = findViewById(R.id.background);
+                background.setImageDrawable(drawable);
+
+                return null;
+            }
+        }, Task.UI_THREAD_EXECUTOR);
     }
 }
