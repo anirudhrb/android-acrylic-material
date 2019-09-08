@@ -1,6 +1,7 @@
 package com.anirudhrb.acrylicmaterial;
 
 import android.content.Context;
+import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -32,6 +33,7 @@ public class AcrylicMaterial {
     private Drawable mNoiseLayer;
     @Nullable
     private Drawable mTintLayer;
+    private float mSaturation = 1f;
 
     /**
      * The factor the original background image needs to be scaled by.
@@ -53,10 +55,10 @@ public class AcrylicMaterial {
     }
 
     /**
-     * Creates a new {@link AcrylicMaterial} instance.
+     * Creates a new `AcrylicMaterial` instance.
      *
      * @param context context
-     * @return an {@link AcrylicMaterial} instance
+     * @return an `AcrylicMaterial` instance
      */
     public static AcrylicMaterial with(@NonNull Context context) {
         Objects.requireNonNull(context);
@@ -67,7 +69,7 @@ public class AcrylicMaterial {
      * Sets the background for the acrylic material effect.
      *
      * @param drawableRes res id of the background drawable
-     * @return {@link AcrylicMaterial} instance
+     * @return `AcrylicMaterial` instance
      */
     public AcrylicMaterial background(@DrawableRes int drawableRes) {
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableRes);
@@ -84,7 +86,7 @@ public class AcrylicMaterial {
      * Sets the background for the acrylic material effect.
      *
      * @param drawable the drawable to use as background
-     * @return current {@link AcrylicMaterial} instance
+     * @return current `AcrylicMaterial` instance
      */
     public AcrylicMaterial background(@NonNull Drawable drawable) {
         Objects.requireNonNull(drawable);
@@ -100,7 +102,7 @@ public class AcrylicMaterial {
      * Default value is 1.0 i.e. no scaling.
      *
      * @param scaleFactor scaling factor
-     * @return current {@link AcrylicMaterial} instance
+     * @return current `AcrylicMaterial` instance
      */
     public AcrylicMaterial scaleBy(float scaleFactor) {
         if (!(scaleFactor >= 0.0f) || !(scaleFactor <= 1.0f))
@@ -114,7 +116,7 @@ public class AcrylicMaterial {
      * Radius for the blur. Range: (0, 25].
      *
      * @param blurRadius radius for the blur
-     * @return current {@link AcrylicMaterial} instance
+     * @return current `AcrylicMaterial` instance
      */
     public AcrylicMaterial blurRadius(float blurRadius) {
         mBlurRadius = blurRadius;
@@ -125,9 +127,9 @@ public class AcrylicMaterial {
      * Sets a noise layer. The noise layer is the topmost layer.
      *
      * @param res res id of the drawable to use as a noise layer
-     * @return current {@link AcrylicMaterial} instance
+     * @return current `AcrylicMaterial` instance
      */
-    public AcrylicMaterial noiseLayer(@DrawableRes int res) {
+    public AcrylicMaterial noise(@DrawableRes int res) {
         mNoiseLayer = ContextCompat.getDrawable(mContext, res);
         if (mNoiseLayer == null) {
             Log.w(TAG, "Unable to set noise layer drawable. " +
@@ -144,7 +146,7 @@ public class AcrylicMaterial {
      * obscure the lower layers.
      *
      * @param argb tint color (as int)
-     * @return current {@link AcrylicMaterial} instance
+     * @return current `AcrylicMaterial` instance
      */
     public AcrylicMaterial tintColor(@ColorInt int argb) {
         GradientDrawable tintLayer = new GradientDrawable();
@@ -153,6 +155,19 @@ public class AcrylicMaterial {
 
         mTintLayer = tintLayer;
 
+        return this;
+    }
+
+    /**
+     * Applies a saturation on the blurred background.
+     *
+     * Default value is 1.0f i.e. no saturation.
+     *
+     * @param saturation saturation value. 0.0f is gray scale, 1.0f is identity.
+     * @return current `AcrylicMaterial` instance
+     */
+    public AcrylicMaterial saturation(float saturation) {
+        mSaturation = saturation;
         return this;
     }
 
@@ -173,7 +188,8 @@ public class AcrylicMaterial {
         long start = System.currentTimeMillis();
 
         final GaussianBlur gaussianBlur = new GaussianBlur(mContext, mBackground, mScaleFactor, mBlurRadius);
-        Drawable blurLayer = new BitmapDrawable(mContext.getResources(), gaussianBlur.apply());
+        final Bitmap blurWithSaturation = Utils.saturateBitmap(gaussianBlur.apply(), mSaturation);
+        Drawable blurLayer = new BitmapDrawable(mContext.getResources(), blurWithSaturation);
 
         List<Drawable> layers = new ArrayList<>();
         layers.add(blurLayer);

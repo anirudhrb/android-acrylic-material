@@ -1,6 +1,5 @@
 package com.anirudhrb.acrylicmaterialdemo;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
                 return AcrylicMaterial.with(MainActivity.this)
                         .background(R.drawable.background_image)
                         .blurRadius(25f)
-                        .tintColor(Color.parseColor("#55FFFFFF"))
-                        .noiseLayer(R.drawable.noise_layer)
+                        .saturation(2.0f)
+                        .noise(R.drawable.noise_layer)
                         .generate();
             }
         }).onSuccess(new Continuation<Drawable, Void>() {
