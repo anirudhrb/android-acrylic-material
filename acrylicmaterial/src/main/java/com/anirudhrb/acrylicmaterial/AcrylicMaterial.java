@@ -248,7 +248,8 @@ public class AcrylicMaterial {
         long start = System.currentTimeMillis();
 
         final Bitmap scaledBackground = scaleBitmap(Utils.bitmapFromDrawable(mBackground), mScaleFactor);
-        final Bitmap blurred = mBlurAlgorithm.applyOn(scaledBackground, mBlurRadius);
+        final Bitmap saturationBoost = Utils.saturateBitmap(scaledBackground, mSaturation);
+        final Bitmap blurred = mBlurAlgorithm.applyOn(saturationBoost, mBlurRadius);
 
         if (blurred == null) {
             Log.wtf(TAG, "Blur failed!");
@@ -256,8 +257,7 @@ public class AcrylicMaterial {
                     "Check if the given radius was out of the range of permitted values!");
         }
 
-        final Bitmap blurWithSaturation = Utils.saturateBitmap(blurred, mSaturation);
-        final Drawable blurLayer = new BitmapDrawable(mContext.getResources(), blurWithSaturation);
+        final Drawable blurLayer = new BitmapDrawable(mContext.getResources(), blurred);
 
         final List<Drawable> layers = new ArrayList<>();
         layers.add(blurLayer);
