@@ -25,9 +25,7 @@ public class MainActivity extends AppCompatActivity {
             public Drawable call() {
                 return AcrylicMaterial.with(MainActivity.this)
                         .background(R.drawable.background_image)
-                        .blurRadius(25f)
-                        .saturation(2.0f)
-                        .noise(R.drawable.noise_layer)
+                        .useDefaults()
                         .generate();
             }
         }).onSuccess(new Continuation<Drawable, Void>() {
