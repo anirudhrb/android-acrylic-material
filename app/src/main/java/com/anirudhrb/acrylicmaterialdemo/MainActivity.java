@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         Task.callInBackground(new Callable<Drawable>() {
             @Override
             public Drawable call() {
-                return AcrylicMaterial.with(MainActivity.this)
+                return AcrylicMaterial
+                        .with(MainActivity.this)
                         .background(R.drawable.background_image)
                         .useDefaults()
                         .generate();

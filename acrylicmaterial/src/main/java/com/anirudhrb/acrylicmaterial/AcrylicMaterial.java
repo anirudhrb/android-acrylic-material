@@ -18,9 +18,21 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Configures and generates the acrylic material effect.
- * <p>
- * TODO: add example and more info.
+ * <p>Generates a drawable that can be used as a background as an acrylic
+ * material background.</p>
+ *
+ * <p>Example usage:</p>
+ *
+ * <pre>
+ * AcrylicMaterial
+ *     .with(MainActivity.this)
+ *     .background(R.drawable.background_image)
+ *     .useDefaults()
+ *     .generate();
+ * </pre>
+ *
+ * <p>This will generate an acrylic material background based on the given back-
+ * ground image ({@code R.drawable.background_image}) using the default options.</p>
  */
 public class AcrylicMaterial {
     private static final String TAG = "AcrylicMaterial";
@@ -106,6 +118,7 @@ public class AcrylicMaterial {
      * @param scaleFactor scaling factor
      * @return current {@code AcrylicMaterial} instance
      */
+    @SuppressWarnings("WeakerAccess")
     public AcrylicMaterial scaleBy(float scaleFactor) {
         if (!(scaleFactor >= 0.0f) || !(scaleFactor <= 1.0f))
             throw new AssertionError("scaleFactor must be between 0 and 1");
@@ -266,9 +279,9 @@ public class AcrylicMaterial {
     }
 
     /**
-     * Creates a new bitmap that is a scaled version of `input`.
-     * The size of the scaled bitmap will be `input.getWidth() * scale x input.getHeight() * scale`
-     * rounded to the closest int.
+     * Creates a new bitmap that is a scaled version of {@code input}.
+     * The size of the scaled bitmap will be {@code input.getWidth() * scale} by
+     * {@code input.getHeight() * scale} rounded to the closest int.
      *
      * @param input the bitmap to scale
      * @param scale the factor by which to scale
