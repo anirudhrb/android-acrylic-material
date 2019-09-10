@@ -1,8 +1,8 @@
 # Acrylic material for Android
 Acrylic is a Fluent Design System component that adds physical texture
 (material) and depth to your app. To learn more refer:
-1. https://docs.microsoft.com/en-us/windows/uwp/design/style/acrylic
-2. https://medium.com/microsoft-design/science-in-the-system-fluent-design-and-material-42b4dc532c14
+1. https://medium.com/microsoft-design/science-in-the-system-fluent-design-and-material-42b4dc532c14
+2. https://docs.microsoft.com/en-us/windows/uwp/design/style/acrylic
 
 # How to use
 First, generate an acrylic drawable using an existing background image
