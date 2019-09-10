@@ -21,7 +21,7 @@ Then use the drawable as a background where the effect is needed!
 
 # More options
 The above example uses the default configuration by calling `useDefaults()`. The
-following example shows all the options that are available for customization.
+following example shows all the customization options:
 
 ```java
 Drawable d = AcrylicMaterial
