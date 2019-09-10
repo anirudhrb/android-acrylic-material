@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 28
@@ -30,4 +32,60 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'Acrylic Material for Android'
+            description 'Acrylic material effect for Android'
+            url 'https://github.com/anirudhrb/android-acrylic-material'
+            inceptionYear '2019'
+
+            packaging 'aar'
+            groupId 'com.anirudhrb'
+            artifactId 'acrylicmaterial'
+            version '0.0.1'
+
+            licenses {
+                license {
+                    name 'The MIT License (MIT)'
+                    url 'https://opensource.org/licenses/MIT'
+                }
+            }
+            scm {
+                connection 'https://github.com/anirudhrb/android-acrylic-material.git'
+                url 'https://github.com/anirudhrb/android-acrylic-material'
+            }
+            developers {
+                developer {
+                    id = 'anirudhrb'
+                    name 'Anirudh Rayabharam'
+                }
+            }
+        }
+    }
+}
+
+Properties bintrayProperties = new Properties()
+bintrayProperties.load(project.rootProject.file('bintray.properties').newDataInputStream())
+
+bintray {
+    user = bintrayProperties.getProperty('user')
+    key = bintrayProperties.get('key')
+    configurations = ['archives']
+    pkg {
+        repo = 'android'
+        name = 'acrylicmaterial'
+        userOrg = 'anirudhrb'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/anirudhrb/android-acrylic-material.git'
+        publish = true
+        version {
+            name = '0.0.1'
+            desc = 'Android Acrylic Material 0.0.1'
+            released = new Date()
+            vcsTag = 'v0.0.1'
+        }
+    }
 }
