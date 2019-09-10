@@ -148,7 +148,7 @@ public class AcrylicMaterial {
      * <p>
      * More about Stack Blur: http://www.quasimondo.com/StackBlurForCanvas/StackBlurDemo.html
      * <p>
-     * {@code radius} must be greater or equal to 1.
+     * {@code radius} must be strictly greater than 0.
      *
      * @param radius blur radius
      * @return current {@code AcrylicMaterial} instance

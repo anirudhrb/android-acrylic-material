@@ -16,3 +16,24 @@ Drawable d = AcrylicMaterial
 ```
 
 Then use the drawable as a background where the effect is needed!
+
+**NOTE**: You should probably do this on a background thread.
+
+# More options
+The above example uses the default configuration by calling `useDefaults()`. The
+following example shows all the options that are available for customization.
+
+```java
+Drawable d = AcrylicMaterial
+                 .with(MainActivity.this)
+                 .background(R.drawable.background_image)
+                 .scaleBy(0.8f) // scale down the background image by 20%
+                 .saturation(2f) // saturate 200%
+                 .stackBlur(80) // stack blur with radius 80. Also available: gaussianBlur(25f)
+                 .tintColor(Color.parseColor("#55FFFFFF"))
+                 .noise(R.drawable.noise_layer) // custom noise texture
+                 .generate();
+```
+
+**NOTE**: For Gaussian blur, the permitted range of radius is (0, 25]. For Stack
+blur, the radius must be strictly greater than 0.
