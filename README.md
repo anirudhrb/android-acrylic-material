@@ -9,7 +9,7 @@ First, generate an acrylic drawable using an existing background image
 drawable:
 ```java
 Drawable d = AcrylicMaterial
-                .with(MainActivity.this)
+                .with(context)
                 .background(R.drawable.background_image)
                 .useDefaults()
                 .generate();
@@ -25,7 +25,7 @@ following example shows all the options that are available for customization.
 
 ```java
 Drawable d = AcrylicMaterial
-                 .with(MainActivity.this)
+                 .with(context)
                  .background(R.drawable.background_image)
                  .scaleBy(0.8f) // scale down the background image by 20%
                  .saturation(2f) // saturate 200%
