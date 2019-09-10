@@ -198,6 +198,15 @@ public class AcrylicMaterial {
         return this;
     }
 
+    /**
+     * Sets default options as follows:
+     * 1. {@code scaleBy(0.85f)}
+     * 2. {@code stackBlur(80)}
+     * 3. {@code saturation(2f)}
+     * 4. Noise texture: https://www.transparenttextures.com/patterns/dotnoise-light-grey.png
+     *
+     * @return current {@code AcrylicMaterial} instance
+     */
     public AcrylicMaterial useDefaults() {
         return scaleBy(0.85f)
                 .stackBlur(80)
