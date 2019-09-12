@@ -37,3 +37,10 @@ Drawable d = AcrylicMaterial
 
 **NOTE**: For Gaussian blur, the permitted range of radius is (0, 25]. For Stack
 blur, the radius must be strictly greater than 0.
+
+# Screeshots
+**Original image**
+![original](app/src/main/res/drawable/background_image.png)
+
+**Acrylic**
+![acrylic](screenshot.png)

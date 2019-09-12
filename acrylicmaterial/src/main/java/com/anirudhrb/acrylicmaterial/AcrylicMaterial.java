@@ -216,7 +216,8 @@ public class AcrylicMaterial {
      * 1. {@code scaleBy(0.85f)}
      * 2. {@code stackBlur(80)}
      * 3. {@code saturation(2f)}
-     * 4. Noise texture: https://www.transparenttextures.com/patterns/dotnoise-light-grey.png
+     * 4. tint color #ccffffff
+     * 5. noise texture
      *
      * @return current {@code AcrylicMaterial} instance
      */
@@ -224,6 +225,7 @@ public class AcrylicMaterial {
         return scaleBy(0.85f)
                 .stackBlur(80)
                 .saturation(2f)
+                .tintColor(Color.parseColor("#CCffffff"))
                 .noise(R.drawable.noise_layer);
     }
 
